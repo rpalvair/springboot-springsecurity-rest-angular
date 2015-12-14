@@ -16,11 +16,15 @@ public class UserDetailsService implements org.springframework.security.core.use
 	@Override
 	public final User loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println("loadByUsername");
-		final User user = userRepo.findByUsername(username);
-		if (user == null) {
-			throw new UsernameNotFoundException("user not found");
-		}
-		detailsChecker.check(user);
+		//final User user = userRepo.findByUsername(username);
+		//if (user == null) {
+		//	throw new UsernameNotFoundException("user not found");
+		//}
+		//detailsChecker.check(user);
+		User user = new User();
+		user.setPassword("1234");
+		user.setUsername("widdy");
+
 		return user;
 	}
 }
