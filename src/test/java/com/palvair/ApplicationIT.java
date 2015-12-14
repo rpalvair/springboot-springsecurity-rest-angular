@@ -33,8 +33,8 @@ public class ApplicationIT {
         //ResponseEntity<String> response = restTemplate.postForEntity()
 
         User user = new User();
-        user.setPassword("password");
-        user.setUsername("username");
+        user.setPassword("1234");
+        user.setUsername("widdy");
 
 // Set the Content-Type header
         HttpHeaders requestHeaders = new HttpHeaders();

@@ -71,7 +71,10 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.addFilterBefore(new StatelessLoginFilter("/api/login", tokenAuthenticationService, userDetailsService, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 
 				// custom Token based authentication based on the header previously given to the client
-				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class);
+				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class).exceptionHandling().and()
+				.anonymous().and()
+				.servletApi().and()
+				.headers().cacheControl();
 	}
 	
 	@Bean
@@ -82,8 +85,8 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		//auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-		auth.inMemoryAuthentication().withUser("widdy").password("1234").roles("ADMIN");
+		auth.userDetailsService(userDetailsService);
+		//auth.inMemoryAuthentication().withUser("widdy").password("1234").roles("ADMIN");
 	}
 
 	@Override

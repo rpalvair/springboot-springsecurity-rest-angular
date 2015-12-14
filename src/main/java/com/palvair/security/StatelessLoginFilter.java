@@ -40,16 +40,18 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
 
 		final User user = new ObjectMapper().readValue(request.getInputStream(), User.class);
 		List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
-		grantedAuths.add(new SimpleGrantedAuthority("ROLE_BOSS"));
+		grantedAuths.add(new SimpleGrantedAuthority("ADMIN"));
+		System.out.println("attempt");
 		final UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
-				user.getUsername(), user.getPassword(),grantedAuths);
+				user.getUsername(), user.getPassword(), grantedAuths);
+		System.out.println("loginToken : "+loginToken);
 		return getAuthenticationManager().authenticate(loginToken);
 	}
 
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			FilterChain chain, Authentication authentication) throws IOException, ServletException {
-
+		System.out.println("success");
 		// Lookup the complete User object from the database and create an Authentication for it
 		//final User authenticatedUser = userDetailsService.loadUserByUsername(authentication.getName());
 		final User authenticatedUser = new User(authentication.getName());
