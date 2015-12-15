@@ -72,6 +72,11 @@
       <artifactId>httpclient</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.2.2.Final</version>
+    </dependency>
 
 
   </dependencies>

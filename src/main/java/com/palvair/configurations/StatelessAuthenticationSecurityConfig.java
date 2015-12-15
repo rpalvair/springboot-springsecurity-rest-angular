@@ -65,16 +65,16 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.antMatchers("/admin/**").hasRole("ADMIN")
 				
 				//all other request need to be authenticated
-				.anyRequest().hasRole("USER").and()				
+				.anyRequest().hasRole("USER").and()
 		
 				// custom JSON based authentication by POST of {"username":"<name>","password":"<password>"} which sets the token header upon authentication
 				.addFilterBefore(new StatelessLoginFilter("/api/login", tokenAuthenticationService, userDetailsService, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 
 				// custom Token based authentication based on the header previously given to the client
-				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class).exceptionHandling().and()
+				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class)/*.exceptionHandling().and()
 				.anonymous().and()
 				.servletApi().and()
-				.headers().cacheControl();
+				.headers().cacheControl()*/;
 	}
 	
 	@Bean
@@ -85,7 +85,7 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 		//auth.inMemoryAuthentication().withUser("widdy").password("1234").roles("ADMIN");
 	}
 

@@ -8,23 +8,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepo;
+    @Autowired
+    private UserRepository userRepo;
 
-	private final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
+    private final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
 
-	@Override
-	public final User loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("loadByUsername");
-		//final User user = userRepo.findByUsername(username);
-		//if (user == null) {
-		//	throw new UsernameNotFoundException("user not found");
-		//}
-		//detailsChecker.check(user);
-		User user = new User();
-		user.setPassword("1234");
-		user.setUsername("widdy");
-
-		return user;
-	}
+    @Override
+    public final User loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("loadByUsername");
+        final User user = userRepo.findByUsername(username);
+        if (user == null) {
+        	throw new UsernameNotFoundException("user not found");
+        }
+        //detailsChecker.check(user);
+        /*User user = new User();
+        user.setPassword("");
+        user.setUsername("admin");
+        user.grantRole(user.getUsername().equals("admin") ? UserRole.ADMIN : UserRole.USER);*/
+        System.out.println("user = " + user);
+        return user;
+    }
 }
