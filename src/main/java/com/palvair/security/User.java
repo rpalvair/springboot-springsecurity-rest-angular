@@ -2,6 +2,7 @@ package com.palvair.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode
 @Entity
 @Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
 public class User implements UserDetails {
